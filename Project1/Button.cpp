@@ -17,20 +17,27 @@ bool Button::IsClicked() const
 
 void Button::Draw(const Theme& theme) const
 {
-    Color buttonColor = IsHovered()
+    Color buttonColor =
+        IsHovered()
         ? theme.buttonHover
         : theme.button;
 
-    DrawRectangleRounded(bounds, 0.25f, 10, buttonColor);
+    DrawRectangleRounded(
+        bounds,
+        0.2f,
+        10,
+        buttonColor
+    );
 
     int fontSize = 28;
 
-    int textWidth = MeasureText(text.c_str(), fontSize);
+    int textWidth =
+        MeasureText(text.c_str(), fontSize);
 
     DrawText(
         text.c_str(),
-        bounds.x + bounds.width / 2 - textWidth / 2,
-        bounds.y + bounds.height / 2 - fontSize / 2,
+        (int)(bounds.x + bounds.width / 2 - textWidth / 2),
+        (int)(bounds.y + bounds.height / 2 - fontSize / 2),
         fontSize,
         theme.text
     );
