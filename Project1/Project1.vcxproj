@@ -132,10 +132,12 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TextBox.cpp" />
     <ClCompile Include="Theme.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="TextBox.h" />
     <ClInclude Include="ScreenState.h" />
     <ClInclude Include="Theme.h" />
   </ItemGroup>

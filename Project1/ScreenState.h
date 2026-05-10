@@ -3,7 +3,8 @@
 enum class ScreenState
 {
     Home,
-    Booking,
-    Admin,
-    Settings
+    AuthMenu,
+    Login,
+    SignUp,
+    LoggedIn
 };
