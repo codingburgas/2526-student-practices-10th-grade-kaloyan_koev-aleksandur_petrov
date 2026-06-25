@@ -20,9 +20,13 @@ public:
 
     void SetPosition(float x, float y);
 
+    void SetActive(bool isActive);
+
+    bool IsActive() const;
+
     void Update();
 
-    void Draw(const char* placeholder) const;
+    void Draw(const char* placeholder, bool hideText = false) const;
 
     std::string GetText() const;
 
