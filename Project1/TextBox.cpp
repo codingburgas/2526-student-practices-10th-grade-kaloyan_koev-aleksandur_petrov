@@ -17,6 +17,16 @@ void TextBox::SetPosition(float x, float y)
     bounds.y = y;
 }
 
+void TextBox::SetActive(bool isActive)
+{
+    active = isActive;
+}
+
+bool TextBox::IsActive() const
+{
+    return active;
+}
+
 void TextBox::Update()
 {
     if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
@@ -52,7 +62,8 @@ void TextBox::Update()
 }
 
 void TextBox::Draw(
-    const char* placeholder
+    const char* placeholder,
+    bool hideText
 ) const
 {
     DrawRectangleRounded(
@@ -70,9 +81,16 @@ void TextBox::Draw(
         active ? SKYBLUE : GRAY
     );
 
+    std::string hiddenText(
+        text.length(),
+        '*'
+    );
+
     const char* displayText =
         text.empty()
         ? placeholder
+        : hideText
+        ? hiddenText.c_str()
         : text.c_str();
 
     DrawText(

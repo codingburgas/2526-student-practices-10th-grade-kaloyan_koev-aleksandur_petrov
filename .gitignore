@@ -340,6 +340,9 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+# Local files excluded from Git
+gitexclude/
+
 # BeatPulse healthcheck temp database
 healthchecksdb
 

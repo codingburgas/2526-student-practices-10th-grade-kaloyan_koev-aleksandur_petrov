@@ -46,6 +46,8 @@ int main()
 
     TextBox confirmPasswordBox(0, 0, 400, 60);
 
+    int activeTextBoxIndex = 0;
+
     while (!WindowShouldClose())
     {
         int currentWidth = GetScreenWidth();
@@ -177,6 +179,22 @@ int main()
             "Back"
         );
 
+        Button loginSubmitButton(
+            currentWidth / 2 - 150,
+            panelY + 500,
+            300,
+            70,
+            "Login"
+        );
+
+        Button signUpSubmitButton(
+            currentWidth / 2 - 150,
+            panelY + 590,
+            300,
+            70,
+            "Create Account"
+        );
+
         // =========================
         // THEME BUTTON
         // =========================
@@ -238,6 +256,14 @@ int main()
 
                 passwordBox.Clear();
 
+                emailBox.SetActive(true);
+
+                passwordBox.SetActive(false);
+
+                confirmPasswordBox.SetActive(false);
+
+                activeTextBoxIndex = 0;
+
                 loginFailed = false;
 
                 currentScreen =
@@ -251,6 +277,14 @@ int main()
                 passwordBox.Clear();
 
                 confirmPasswordBox.Clear();
+
+                emailBox.SetActive(true);
+
+                passwordBox.SetActive(false);
+
+                confirmPasswordBox.SetActive(false);
+
+                activeTextBoxIndex = 0;
 
                 currentScreen =
                     ScreenState::SignUp;
@@ -276,7 +310,40 @@ int main()
 
             confirmPasswordBox.Update();
 
-            if (IsKeyPressed(KEY_ENTER))
+            if (emailBox.IsActive())
+            {
+                activeTextBoxIndex = 0;
+            }
+            else if (passwordBox.IsActive())
+            {
+                activeTextBoxIndex = 1;
+            }
+            else if (confirmPasswordBox.IsActive())
+            {
+                activeTextBoxIndex = 2;
+            }
+
+            if (IsKeyPressed(KEY_TAB))
+            {
+                int direction =
+                    IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)
+                    ? -1
+                    : 1;
+
+                activeTextBoxIndex =
+                    (activeTextBoxIndex + direction + 3) % 3;
+
+                emailBox.SetActive(activeTextBoxIndex == 0);
+
+                passwordBox.SetActive(activeTextBoxIndex == 1);
+
+                confirmPasswordBox.SetActive(activeTextBoxIndex == 2);
+            }
+
+            if (
+                IsKeyPressed(KEY_ENTER)
+                || signUpSubmitButton.IsClicked()
+                )
             {
                 if (
                     passwordBox.GetText() ==
@@ -331,7 +398,36 @@ int main()
 
             passwordBox.Update();
 
-            if (IsKeyPressed(KEY_ENTER))
+            if (emailBox.IsActive())
+            {
+                activeTextBoxIndex = 0;
+            }
+            else if (passwordBox.IsActive())
+            {
+                activeTextBoxIndex = 1;
+            }
+
+            if (IsKeyPressed(KEY_TAB))
+            {
+                int direction =
+                    IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)
+                    ? -1
+                    : 1;
+
+                activeTextBoxIndex =
+                    (activeTextBoxIndex + direction + 2) % 2;
+
+                emailBox.SetActive(activeTextBoxIndex == 0);
+
+                passwordBox.SetActive(activeTextBoxIndex == 1);
+
+                confirmPasswordBox.SetActive(false);
+            }
+
+            if (
+                IsKeyPressed(KEY_ENTER)
+                || loginSubmitButton.IsClicked()
+                )
             {
                 std::ifstream file(
                     "users.txt"
@@ -486,19 +582,14 @@ int main()
 
             emailBox.Draw("Email");
 
-            passwordBox.Draw("Password");
+            passwordBox.Draw("Password", true);
 
             confirmPasswordBox.Draw(
-                "Verify Password"
+                "Verify Password",
+                true
             );
 
-            DrawText(
-                "Press ENTER to register",
-                currentWidth / 2 - 170,
-                panelY + 650,
-                24,
-                currentTheme.text
-            );
+            signUpSubmitButton.Draw(currentTheme);
 
             backButton.Draw(currentTheme);
         }
@@ -520,22 +611,16 @@ int main()
 
             emailBox.Draw("Email");
 
-            passwordBox.Draw("Password");
+            passwordBox.Draw("Password", true);
 
-            DrawText(
-                "Press ENTER to login",
-                currentWidth / 2 - 150,
-                panelY + 560,
-                24,
-                currentTheme.text
-            );
+            loginSubmitButton.Draw(currentTheme);
 
             if (loginFailed)
             {
                 DrawText(
                     "Invalid email or password",
                     currentWidth / 2 - 190,
-                    panelY + 620,
+                    panelY + 645,
                     24,
                     RED
                 );
