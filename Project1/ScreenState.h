@@ -6,5 +6,7 @@ enum class ScreenState
     AuthMenu,
     Login,
     SignUp,
-    LoggedIn
+    LoggedIn,
+    BookTickets,
+    ViewBookedSeats
 };

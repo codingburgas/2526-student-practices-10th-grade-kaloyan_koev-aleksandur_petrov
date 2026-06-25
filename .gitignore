@@ -351,3 +351,25 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# Replit internal cache and tooling
+.cache/
+.upm/
+.local/
+.agents/
+
+# Chat-attached screenshots (not project files)
+attached_assets/
+
+# Generated zip downloads
+*.zip
+
+# Runtime user data (contains account info, regenerated at runtime)
+Project1/users.txt
+
+# Compiled Windows executables and debug symbols in output folders
+Project1/x64/
+Project1/Project1/
+
+# Linux build artefact (compiled locally by syntax checker)
+Project1/main
