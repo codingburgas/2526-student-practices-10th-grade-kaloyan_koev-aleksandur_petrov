@@ -8,5 +8,9 @@ enum class ScreenState
     SignUp,
     LoggedIn,
     BookTickets,
-    ViewBookedSeats
+    ViewBookedSeats,
+    MovieList,
+    MovieDetail,
+    AdminPanel,
+    Settings
 };
